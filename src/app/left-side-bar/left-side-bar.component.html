@@ -1,0 +1,50 @@
+<div class="left-side-bar" [class.closed] = "!isOpen" >
+    <div class="logo-collaspable" [class.closed] = "!isOpen" >
+        <button class="open-close-btn" (click)="toggleSideBar()" >
+            <mat-icon>
+            segment
+            </mat-icon>
+        </button>
+
+        <img class="logo" src="logo.png" alt="expanaded logo" [ngClass]="isOpen? 'show' : 'hide'">
+        <img class="logo"  src="logo-closed.png" alt="" [ngClass]="isOpen? 'hide' : 'show'">
+    </div>    
+    <ul>
+        <li>
+            <a class="active" [class.open] = "isOpen" href="">
+                <mat-icon>dashboard</mat-icon>
+                <span [ngClass]="isOpen? 'show' : 'hide'">
+                    Dashboard
+                </span>
+            </a>
+        </li>
+
+        <li>
+            <a [class.open] = "isOpen" href="">
+                <mat-icon>content_paste</mat-icon>
+                <span [ngClass]="isOpen? 'show' : 'hide'">
+                    Data Collector
+                </span>
+            </a>
+        </li>
+
+        <li>
+            <a [class.open] = "isOpen" href="">
+                <mat-icon>eco</mat-icon>
+                <span [ngClass]="isOpen? 'show' : 'hide'">
+                    Farmers
+                </span>
+            </a>
+        </li>
+
+        <li>
+            <a [class.open] = "isOpen"  href="">
+                <mat-icon>add_location</mat-icon>
+                <span [ngClass]="isOpen? 'show' : 'hide'">
+                    Plots
+                </span>
+            </a>
+        </li>
+    </ul>
+    
+</div>

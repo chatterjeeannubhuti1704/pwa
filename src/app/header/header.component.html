@@ -1,0 +1,19 @@
+<div class="header-outer">
+    <h5>
+        Welcome, User
+    </h5>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>manage_accounts</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        
+        <button mat-menu-item>
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>notifications_off</mat-icon>
+          <span>Disable alerts</span>
+        </button>
+      </mat-menu>
+</div>
