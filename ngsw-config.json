@@ -26,6 +26,17 @@
         ]
        
       }
+    },
+    {
+      "name": "leaflet-assets",
+      "installMode": "lazy",
+      "updateMode": "lazy",
+      "resources": {
+        "files": [
+          "/node_modules/leaflet/dist/**",
+          "/assets/tiles/**"
+        ]
+      }
     }
   ]
 }
