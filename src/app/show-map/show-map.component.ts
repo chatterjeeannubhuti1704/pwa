@@ -22,7 +22,7 @@ export class ShowMapComponent implements AfterViewInit {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) { 
     this.lat=24.10771;
     this.lng= 88.1991;
-    this.latLngs=[[this.lat,this.lng],[24.10770, 88.1990],[24.10768, 27.1985],[24.10765, 27.1980],[this.lat,this.lng]]
+    this.latLngs=[[this.lat,this.lng],[24.10770, 88.1990],[24.10768, 88.1989],[24.10765, 88.1987],[this.lat,this.lng]]
   }
 
   async ngAfterViewInit(): Promise<void> {
@@ -70,7 +70,7 @@ export class ShowMapComponent implements AfterViewInit {
     
   }
   private addMarkerOuter(L:any):void{
-    this.marker = L.marker([24.10700,88.1000],{ draggable: true }).addTo(this.map);
+    this.marker = L.marker([24.10761, 88.1981],{ draggable: true }).addTo(this.map);
       this.marker.on('dragend', (event:any)=>{
             this.updatedPosition= event.target.getLatLng();
             this.updatePolygonbyAddingPoint(this.updatedPosition,L);
