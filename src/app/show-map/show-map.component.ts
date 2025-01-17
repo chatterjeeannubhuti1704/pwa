@@ -20,10 +20,9 @@ export class ShowMapComponent implements AfterViewInit {
   marker: any;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) { 
-    this.lat=22.5733;
-    this.lng= 88.4331;
-
-    this.latLngs=[[this.lat,this.lng],[22.5700, 88.4300],[22.5600, 88.4200],[22.5700, 88.4100],[this.lat,this.lng]]
+    this.lat=24.10771;
+    this.lng= 88.1991;
+    this.latLngs=[[this.lat,this.lng],[24.10770, 88.1990],[24.10768, 27.1985],[24.10765, 27.1980],[this.lat,this.lng]]
   }
 
   async ngAfterViewInit(): Promise<void> {
@@ -36,6 +35,7 @@ export class ShowMapComponent implements AfterViewInit {
         }
         this.initMap(L);
         this.addMarker(L);
+        this.addMarkerOuter(L);
         this.addPolygon(L);
       } catch (error) {
         console.error('Error loading Leaflet:', error);
@@ -44,7 +44,7 @@ export class ShowMapComponent implements AfterViewInit {
   }
 
   private initMap(L:any): void {
-    this.map = L.map('map').setView([22.5735, 88.4331], 13);
+    this.map = L.map('map').setView([24.10771, 88.1991], 13);
 
     // https://mt1.google.com/vt/lyrs=s&x=&y=&z=
     // {s}.tile.openstreetmap.org/{z}/{x}/{y}
@@ -57,16 +57,25 @@ export class ShowMapComponent implements AfterViewInit {
 
   private addMarker(L:any):void{
    
-    this.latLngs.forEach((coordinates:[number, number]) => {
+    this.latLngs.forEach((coordinates:[number, number],index:number) => {
       this.marker = L.marker(coordinates,{ draggable: true }).addTo(this.map);
       this.marker.on('dragend', (event:any)=>{
             this.updatedPosition= event.target.getLatLng();
-            this.updatePolygonbyAddingPoint(this.updatedPosition,L);
-
+            // this.updatePolygonbyAddingPoint(this.updatedPosition,L);
+            this.latLngs[index] = [this.updatedPosition.lat, this.updatedPosition.lng];
+           this.updatePolygon(L);
           });
     });
     
     
+  }
+  private addMarkerOuter(L:any):void{
+    this.marker = L.marker([24.10700,88.1000],{ draggable: true }).addTo(this.map);
+      this.marker.on('dragend', (event:any)=>{
+            this.updatedPosition= event.target.getLatLng();
+            this.updatePolygonbyAddingPoint(this.updatedPosition,L);
+           
+          });
   }
 
   private addPolygon(L:any):void{
@@ -81,6 +90,10 @@ export class ShowMapComponent implements AfterViewInit {
     this.latLngs[0]=[postion.lat, postion.lng];
     this.polygon.setLatLngs(this.latLngs);
     this.addMarker(L);
+  }
+
+  private updatePolygon(L:any):void{
+    this.polygon.setLatLngs(this.latLngs);
   }
 }
 
