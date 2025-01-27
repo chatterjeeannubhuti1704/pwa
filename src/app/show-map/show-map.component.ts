@@ -1,10 +1,12 @@
 import { Inject, Component, PLATFORM_ID, AfterViewInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { circleMarker } from 'leaflet';
+import { MapService } from '../map.service';
+import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
 // import 'leaflet-draw'; 
 @Component({
   selector: 'app-show-map',
-  imports: [],
+  imports: [HttpClientModule],
+  providers:[MapService, HttpClient],
   templateUrl: './show-map.component.html',
   styleUrl: './show-map.component.scss'
 })
@@ -22,10 +24,18 @@ export class ShowMapComponent implements AfterViewInit {
   drawControl: any;
   drawnFeatures: any;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) { 
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, 
+  private mapService: MapService, private http: HttpClient
+) { 
     this.lat=24.107562834510265;
     this.lng= 88.19982469081879;
-    this.latLngs=[[this.lat,this.lng],[24.10750407607746, 88.20004999637605],[24.106931179944503,  88.19985151290895],[24.106945869620947, 88.19945454597475],[this.lat,this.lng]]
+    this.latLngs=[
+      [this.lat,this.lng],
+      [24.10750407607746, 88.20004999637605],
+      [24.106931179944503,  88.19985151290895],
+      [24.106945869620947, 88.19945454597475],
+      [this.lat,this.lng]
+    ]
   }
   async ngAfterViewInit(): Promise<void> {
     if (isPlatformBrowser(this.platformId)) {
@@ -44,6 +54,14 @@ export class ShowMapComponent implements AfterViewInit {
         console.error('Error loading Leaflet:', error);
       }
     }
+    this.mapService.getLatLng().subscribe({
+      next: (res: any) => {
+        console.log('Success:', res);
+      },
+      error: (err: any) => {
+        console.error('Error:', err);
+      }
+    });
   }
 
   private initMap(L:any): void {

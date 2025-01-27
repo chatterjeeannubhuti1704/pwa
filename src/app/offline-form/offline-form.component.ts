@@ -19,10 +19,10 @@ export class OfflineFormComponent {
       email: ['',Validators.required],
       imgFile: [null, Validators.required]
     });
-    const savedData = localStorage.getItem('offlineFormData');
-    if (savedData) {
-      this.data = JSON.parse(savedData);
-    }
+    // const savedData = localStorage.getItem('offlineFormData');
+    // if (savedData) {
+    //   this.data = JSON.parse(savedData);
+    // }
   }
   onFileChange(event: any) {
     const file = event.target.files[0];
@@ -33,7 +33,7 @@ export class OfflineFormComponent {
   onSubmit(){
     if(this.myOfflineForm.valid){
       this.data.push(this.myOfflineForm.value);
-      localStorage.setItem('offlineFormData', JSON.stringify(this.data));
+      // localStorage.setItem('offlineFormData', JSON.stringify(this.data));
       this.myOfflineForm.reset();
     }
   }
